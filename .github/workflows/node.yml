@@ -34,7 +34,7 @@ jobs:
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
-          echo "::set-output name=pnpm_store_path::$(pnpm store path)"
+          echo "pnpm_store_path=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         name: Set up pnpm cache
@@ -52,9 +52,6 @@ jobs:
 
       - name: Lint Source
         run: pnpm run --if-present lint
-
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps
 
       - name: Run Tests
         run: pnpm run --if-present test
