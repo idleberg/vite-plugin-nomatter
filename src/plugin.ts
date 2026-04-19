@@ -18,7 +18,7 @@ export interface NomatterOptions {
 	stripHeading?: boolean;
 
 	// Custom frontmatter properties to add to the extracted metadata object. Values can be static or dynamically derived from the content AST via a function.
-	frontmatter?: Record<string, unknown>;
+	meta?: Record<string, unknown>;
 }
 
 export default function nomatter(options: NomatterOptions = {}): Plugin {
@@ -33,7 +33,7 @@ export default function nomatter(options: NomatterOptions = {}): Plugin {
 		descriptionLength = 160,
 
 		stripHeading = true,
-		frontmatter = {},
+		meta = {},
 	} = options;
 
 	// Processor is stateless and can safely be reused across all transform calls
@@ -65,7 +65,7 @@ export default function nomatter(options: NomatterOptions = {}): Plugin {
 			const description = extractDescription(tree, descriptionLength);
 
 			const fm = [
-				...Object.entries(frontmatter).map(([key, value]) => {
+				...Object.entries(meta).map(([key, value]) => {
 					const val = typeof value === 'function' ? value(tree) : value;
 
 					return `${key}: ${toYamlValue(val)}`;

@@ -34,7 +34,7 @@ export default defineConfig({
 				contentDir: 'src/content/docs',
 				descriptionLength: 150,
 				stripHeading: true,
-				frontmatter: {
+				meta: {
 					draft: false,
 				},
 			})
@@ -58,7 +58,7 @@ export default defineConfig({
 | `contentDir`        | `string`                   | `'src/content/docs'`  | Only files under this path segment are processed         |
 | `descriptionLength` | `number`                   | `160`                 | Maximum character length for the extracted description   |
 | `stripHeading`      | `boolean`                  | `true`                | Remove the h1 from the body after extracting the title   |
-| `frontmatter`       | `Record<string, unknown>`  | `{}`                  | Additional frontmatter fields to inject into every file  |
+| `meta`              | `Record<string, unknown>`  | `{}`                  | Additional frontmatter fields to inject into every file  |
 
 ## License ©️
 
