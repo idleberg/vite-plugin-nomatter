@@ -16,6 +16,9 @@ export interface NomatterOptions {
 
 	/** Remove the h1 from the body after extracting it as the title. Default: true */
 	stripHeading?: boolean;
+
+	// Custom frontmatter properties to add to the extracted metadata object. Values can be static or dynamically derived from the content AST via a function.
+	frontmatter?: Record<string, unknown>;
 }
 
 export default function nomatter(options: NomatterOptions = {}): Plugin {
@@ -30,6 +33,7 @@ export default function nomatter(options: NomatterOptions = {}): Plugin {
 		descriptionLength = 160,
 
 		stripHeading = true,
+		frontmatter = {},
 	} = options;
 
 	// Processor is stateless and can safely be reused across all transform calls
@@ -60,7 +64,15 @@ export default function nomatter(options: NomatterOptions = {}): Plugin {
 
 			const description = extractDescription(tree, descriptionLength);
 
-			const fm = [`title: "${escapeYaml(title)}"`];
+			const fm = [
+				...Object.entries(frontmatter).map(([key, value]) => {
+					const val = typeof value === 'function' ? value(tree) : value;
+
+					return `${key}: ${toYamlValue(val)}`;
+				}),
+				`title: "${escapeYaml(title)}"`,
+			];
+
 			if (description) fm.push(`description: "${escapeYaml(description)}"`);
 
 			let body = code;
@@ -118,4 +130,11 @@ function extractDescription(tree: Root, maxLen: number): string | null {
 /** Escapes backslashes and double quotes for YAML double-quoted scalar strings */
 function escapeYaml(value: string): string {
 	return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+/** Serializes a value as a YAML scalar, quoting only strings */
+function toYamlValue(value: unknown): string {
+	if (typeof value === 'boolean' || typeof value === 'number') return String(value);
+	if (value == null) return 'null';
+	return `"${escapeYaml(String(value))}"`;
 }

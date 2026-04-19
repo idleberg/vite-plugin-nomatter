@@ -211,3 +211,42 @@ describe('output format', () => {
 		expect(result).not.toContain('description:');
 	});
 });
+
+// ---------------------------------------------------------------------------
+// Custom frontmatter
+// ---------------------------------------------------------------------------
+describe('custom frontmatter', () => {
+	it('adds static string frontmatter fields', () => {
+		const result = transform('# Title\n\nBody.', undefined, { frontmatter: { author: 'Jan' } });
+		expect(result).toContain('author: "Jan"');
+	});
+
+	it('adds boolean frontmatter fields unquoted', () => {
+		const result = transform('# Title\n\nBody.', undefined, { frontmatter: { draft: true } });
+		expect(result).toContain('draft: true');
+	});
+
+	it('adds numeric frontmatter fields unquoted', () => {
+		const result = transform('# Title\n\nBody.', undefined, { frontmatter: { order: 3 } });
+		expect(result).toContain('order: 3');
+	});
+
+	it('serializes null frontmatter fields', () => {
+		const result = transform('# Title\n\nBody.', undefined, { frontmatter: { banner: null } });
+		expect(result).toContain('banner: null');
+	});
+
+	it('supports function values that receive the AST', () => {
+		const result = transform('# Title\n\nBody.', undefined, {
+			frontmatter: { hasContent: (tree: any) => tree.children.length > 1 },
+		});
+		expect(result).toContain('hasContent: true');
+	});
+
+	it('places custom fields before title in frontmatter', () => {
+		const result = transform('# Title\n\nBody.', undefined, { frontmatter: { draft: false } });
+		const draftIndex = result.indexOf('draft:');
+		const titleIndex = result.indexOf('title:');
+		expect(draftIndex).toBeLessThan(titleIndex);
+	});
+});
