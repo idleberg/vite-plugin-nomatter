@@ -1,0 +1,18 @@
+# Package Managers
+node_modules/
+deno.lock
+package-lock.json
+yarn.lock
+
+# Build
+dist/
+
+# Development
+.env
+index.html
+/vite.config.*
+vite*.config.ts.timestamp-*
+
+# Test
+coverage/
+test-results/

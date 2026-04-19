@@ -1,0 +1,64 @@
+{
+	"name": "vite-plugin-nomatter",
+	"version": "0.1.0",
+	"description": "Vite plugin that derives frontmatter from Markdown content, removing the need to write frontmatter.",
+	"license": "MIT",
+	"author": "Jan T. Sott",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/idleberg/vite-plugin-devcert.git"
+	},
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"astro",
+		"starlight",
+		"markdown",
+		"frontmatter"
+	],
+	"type": "module",
+	"exports": {
+		"types": "./dist/plugin.d.mts",
+		"import": "./dist/plugin.mjs"
+	},
+	"engines": {
+		"node": ">=22.21.0"
+	},
+	"files": [
+		"dist/",
+		"LICENSE",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsdown",
+		"dev": "tsdown --watch",
+		"lint": "concurrently --prefix-colors blue,green,magenta npm:lint:*",
+		"lint:biome": "biome check",
+		"lint:e18e": "e18e-cli analyze",
+		"prepack": "npm run build",
+		"publish:npm": "np",
+		"test": "vitest run"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@commitlint/cli": "^20.5.0",
+		"@commitlint/config-conventional": "^20.5.0",
+		"@idleberg/configs": "^0.4.2",
+		"@types/mdast": "^4.0.0",
+		"@types/node": "^24.12.2",
+		"concurrently": "^9.2.1",
+		"tsdown": "^0.21.9",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.8",
+		"vitest": "^4.1.4"
+	},
+	"peerDependencies": {
+		"vite": ">=5.0.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"lefthook"
+		]
+	},
+	"packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
+}
