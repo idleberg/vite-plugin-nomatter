@@ -1,7 +1,7 @@
 # vite-plugin-nomatter
 
 [![License](https://img.shields.io/github/license/idleberg/vite-plugin-nomatter?color=blue&style=for-the-badge)](https://github.com/idleberg/vite-plugin-nomatter/blob/main/LICENSE)
-[![Version: npm](https://img.shields.io/npm/v/@idleberg/vite-plugin-nomatter?style=for-the-badge)](https://www.npmjs.org/package/@idleberg/vite-plugin-nomatter)
+[![Version: npm](https://img.shields.io/npm/v/vite-plugin-nomatter?style=for-the-badge)](https://www.npmjs.org/package/vite-plugin-nomatter)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/idleberg/vite-plugin-nomatter/main?style=for-the-badge)
 
 A Vite plugin that lets you write pure Markdown without frontmatter. It derives
