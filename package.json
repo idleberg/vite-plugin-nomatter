@@ -39,7 +39,12 @@
 		"publish:npm": "np",
 		"test": "vitest run"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"mdast": "^3.0.0",
+		"mdast-util-to-string": "^4.0.0",
+		"remark-parse": "^11.0.0",
+		"unified": "^11.0.5"
+	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.5.0",
 		"@commitlint/config-conventional": "^20.5.0",
